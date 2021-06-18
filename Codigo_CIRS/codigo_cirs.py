@@ -12,7 +12,7 @@ from functions import *
 import pandas as pd
 import csv
 
-
+a=10+3
 direct=directories('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/segmentaciones')
 seg=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/segmentaciones')
 segref=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/M04_Static/SEGREFERENCIA2')
