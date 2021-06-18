@@ -1,1 +1,5 @@
 profiles_settings.xml
+vcs.xml
+TFM.iml
+misc.xml
+.gitignore
