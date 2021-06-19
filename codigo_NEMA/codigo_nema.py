@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib
 from numpy.core.fromnumeric import shape
 
-matplotlib.use('TkAgg')
+matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 import nrrd
 import napari
@@ -19,13 +19,20 @@ main_path = '/Users/veromieites/Desktop/MoviTFM'
 
 direct = directories(main_path + '/NewData_4DDynamic/Segmentations')  # Directorio de las segmentaciones
 seg = importnrrd(main_path + '/NewData_4DDynamic/Segmentations')  # Importamos segmentaciones de referencia
-images = nrrd.read(main_path + '/NewData_4DDynamic/NEMA_Exhal40%.nrrd')[0] # El que va bien
-pets = names(main_path + '/NewData_4DDynamic/')  # Nombre de archivo de cada imagen PET
-pets = [pet for pet in pets if not pet.startswith('S')]
-'''direct = directories(main_path + '/Reference_3DStatic/NEMA_Static.nrrd')  # Directorio de las segmentaciones
-seg = importnrrd(main_path + '/Reference_3DStatic/NEMA_Static.nrrd')  # Importamos segmentaciones de referencia
-images = nrrd.read(main_path + '/Reference_3DStatic/NEMA_Static.nrrd')[0]  # El que va mal
-pets = names(main_path + '/Reference_3DStatic/NEMA_Static.nrrd')  # Nombre de archivo de cada imagen PET'''
+#images = nrrd.read(main_path + '/NewData_4DDynamic/NEMA_Exhal40%.nrrd')[0] # El que va bien
+#pets = names(main_path + '/NewData_4DDynamic/')  # Nombre de archivo de cada imagen PET
+
+
+#direct = directories(main_path + '/Reference_3DStatic/Segmentations')  # Directorio de las segmentaciones
+#seg = importnrrd(main_path + '/Reference_3DStatic/Segmentations')  # Importamos segmentaciones de referencia
+#images = nrrd.read(main_path + '/Reference_3DStatic/NEMA_Static.nrrd')[0]  # El que tambien va bien
+pets = names(main_path + '/Reference_3DStatic/')  # Nombre de archivo de cada imagen PET
+
+pets = [pet for pet in pets if not pet.startswith('S')] # Elimina las segmentaciones y deja los pets
+
+images = nrrd.read(main_path + '/Reference_3DStatic/PETStaticprueba2.nrrd')[0]  # El 3D con las dims del 4D
+pets = pets[1] # el nombre asociado
+
 
 voxeldim = 4  # tamaño de los voxeles, en mm
 
@@ -54,3 +61,15 @@ with open('M01_prosp.csv', 'w') as f:
 	for key in dic.keys():
 		# key.replace("[","")
 		f.write("%s,%s\n" % (key, dic[key]))
+
+
+viewer = napari.Viewer()
+napar_img = viewer.add_image(images,name='PetScan',gamma=0.62)
+napar_seg0 = viewer.add_image(seg[0],name='seg 26',colormap='cyan',blending='additive',opacity=0.5,contrast_limits=[-2.04, 8.415000000000003])
+napar_seg1 = viewer.add_image(seg[1],name='seg 11',colormap='green',blending='additive',opacity=0.5,contrast_limits=[-2.04, 8.415000000000003])
+napar_seg2 = viewer.add_image(seg[2],name='seg 03',colormap='PiYG',blending='additive',opacity=0.5,contrast_limits=[-2.04, 8.415000000000003])
+
+napar_seg0.contrast_limits = [-2.04, 8.415000000000003]
+napar_seg1.contrast_limits = [-2.04, 8.415000000000003]
+napar_seg2.contrast_limits = [-2.04, 8.415000000000003]
+
