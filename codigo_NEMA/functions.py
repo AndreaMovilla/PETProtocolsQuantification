@@ -56,13 +56,11 @@ def thresholdseg(seg, image, voxeldim):
 	# Calculamos hasta que punto en el eje z tenemos valores superiores al 70%
 	testz_down = 0
 	while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0]][coord[1][0]][coord[2][0] + testz_down]:
-		print('finding testz_down...')
 		testz_down = testz_down - 1
 	testz_down = testz_down + 1
 
 	testz_up = 0
 	while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0]][coord[1][0]][coord[2][0] + testz_up]:
-		print('finding testz_up...')
 		testz_up = testz_up + 1
 	testz_up = testz_up - 1
 
@@ -70,35 +68,26 @@ def thresholdseg(seg, image, voxeldim):
 	testy_up = 0
 	# Calculamos hasta que punto en el eje y tenemos valores superiores al 70%
 	while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0]][coord[1][0] + testy_up][coord[2][0]]:
-		print('finding testy_up...')
 		testy_up = testy_up + 1
 	testy_up = testy_up - 1
 
 	while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0]][coord[1][0] + testy_down][
 		coord[2][0]]:
-		print('finding testy_down...')
 		testy_down = testy_down - 1
 	testy_down = testy_down + 1
-	#print('zdown:',testz_down)
-	#print('zup:',testz_down)
-	#print('ydown:',testy_down)
-	#print('yup:',testy_down)
+
 	# Calculamos hasta que punto en el eje x tenemos valores superiores al 70% ligado a los ejes z e y. Obtenemos las coordenadas de todos los puntos
 	coord1 = []
-	print('testz:', (testz_down, testz_up))
 	for j in range(testz_down, testz_up):
-		print('testy:', (testy_down, testy_up))
 		for i in range(testy_down, testy_up):
 			testx_up = 0
 			testx_down = -1
 			while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0] + testx_up][coord[1][0] + i][
 				coord[2][0] + j]:
-				print('finding testx_up...')
 				coord1.append((coord[0][0] + testx_up, coord[1][0] + i, coord[2][0] + j))
 				testx_up = testx_up + 1
 			while image[coord[0][0]][coord[1][0]][coord[2][0]] * 0.7 < image[coord[0][0] + testx_down][coord[1][0] + i][
 				coord[2][0] + j]:
-				print('finding testx_down...')
 				coord1.append((coord[0][0] + testx_down, coord[1][0] + i, coord[2][0] + j))
 				testx_down = testx_down + 1
 
