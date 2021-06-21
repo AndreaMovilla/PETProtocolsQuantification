@@ -137,11 +137,12 @@ def thresholdseg(seg, image, voxeldim):
 			while valor40 < image[coord[0][0] + testx_down][coord[1][0] + i][coord[2][0] + j]:
 				coord2.append((coord[0][0] + testx_down, coord[1][0] + i, coord[2][0] + j))
 				testx_down = testx_down - 1
-	imageseg2=np.copy(image)*0
 
+	#Con las coordenadas obtenemos la segmentación
+	imageseg2=np.copy(image)*0
 	for i in range(0,len(coord2)-1):
 		imageseg2[coord2[i][0]][coord2[i][1]][coord2[i][2]]=1
-
+	#Obtenemos el volumen de la segmentación
 	numerovoxels = len(coord2)
 	volumen = numerovoxels * voxeldim / 1000
 	return volumen, imageseg2
