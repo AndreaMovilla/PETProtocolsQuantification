@@ -14,9 +14,9 @@ from functions import *
 import pandas as pd
 import xlsxwriter
 
-main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp'
-
-direct = directories(main_path + '/Reference_segmentations')  # Directorio de las segmentaciones
+main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M04_Static/Static'
+excelname='staticvolumes.xlsx'
+direct = directories(main_path + '/Reference_segmentations') # Directorio de las segmentaciones
 seg = importnrrd(main_path + '/Reference_segmentations')  # Importamos segmentaciones de referencia
 images = importnrrd(main_path + '/PET') # El que va bien
 pets=names(main_path + '/PET') # Nombre de archivo de cada imagen PET
@@ -43,7 +43,7 @@ valuelist = dic.values()
 
 df = pd.DataFrame(data=dic)
 df = (df.T)
-df.to_excel('dict1.xlsx')
+df.to_excel(excelname)
 
 
 

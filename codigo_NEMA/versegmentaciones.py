@@ -14,11 +14,11 @@ from functions import *
 import pandas as pd
 import xlsxwriter
 
-main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp'
+main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M04_Static/Static'
 
-direct = directories(main_path + '/Threshold_segmentations/Prosp/M01_Asc/7090')  # Directorio de las segmentaciones
-seg = importnrrd(main_path + '/Threshold_segmentations/Prosp/M01_Asc/7090')  # Importamos segmentaciones de referencia
-image = nrrd.read(main_path + '/PET/M01_Asc/PET/70Asc9040PETRetrospective.nrrd')[0] # El que va bien
+direct = directories(main_path + '/TS_segmentations')  # Directorio de las segmentaciones
+seg = importnrrd(main_path + '/TS_segmentations')  # Importamos segmentaciones de referencia
+image = nrrd.read(main_path + '/PET/NEMA_staticRes.nrrd')[0] # El que va bien
 
 
 
