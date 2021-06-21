@@ -17,15 +17,15 @@ import xlsxwriter
 main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M04_Static/Static'
 
 direct = directories(main_path + '/TS_segmentations')  # Directorio de las segmentaciones
-seg = importnrrd(main_path + '/TS_segmentations')  # Importamos segmentaciones de referencia
-image = nrrd.read(main_path + '/PET/NEMA_staticRes.nrrd')[0] # El que va bien
+seg = importnrrd(main_path + '/Reference_segmentations')  # Importamos segmentaciones de referencia
+image = nrrd.read(main_path + '/PET/NEMA_Static.nrrd')[0] # El que va bien
 
 
 
 viewer = napari.Viewer()
-napar_img = viewer.add_image(image,name='PetScan',gamma=0.62)
-napar_seg0 = viewer.add_image(seg[0])
-napar_seg1 = viewer.add_image(seg[1])
-napar_seg2 = viewer.add_image(seg[2])
-napar_seg3 = viewer.add_image(seg[3])
-napar_seg4 = viewer.add_image(seg[4])
+napar_img = viewer.add_image(image,name='PetScan',gamma=0.62, colormap='twilight')
+napar_seg0 = viewer.add_image(seg[0], colormap='red',blending='additive',opacity=0.4)
+napar_seg1 = viewer.add_image(seg[1], colormap='red',blending='additive',opacity=0.4)
+napar_seg2 = viewer.add_image(seg[2], colormap='red',blending='additive',opacity=0.4)
+napar_seg3 = viewer.add_image(seg[3], colormap='red',blending='additive',opacity=0.4)
+napar_seg4 = viewer.add_image(seg[4], colormap='red',blending='additive',opacity=0.4)
