@@ -30,7 +30,9 @@ for j in range(0, len(pets)): #TODO: cambiado len(images) a len(pets) para no li
 	coordenadas = []
 	for i in range(0, len(seg)):
 		volumen = thresholdseg(seg[i], images[j], voxeldim)
-		volumenes.append(volumen)
+		filename='TS_'+direct[i]+'_''+pets[j]
+		nrrd.write(filename, volumen[1])
+		volumenes.append(volumen[0])
 	dic[pets[j]] = volumenes
 
 
