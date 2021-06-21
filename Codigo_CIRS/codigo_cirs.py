@@ -12,16 +12,16 @@ from functions import *
 import pandas as pd
 import csv
 
-a=10+3
-b=4
-direct=directories('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/segmentaciones')
-seg=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/segmentaciones')
-segref=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/M04_Static/SEGREFERENCIA2')
-imageref=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/M04_Static/PET')
-images=importnrrd('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/M02_Typ7/Prosp_PET')
-pets=names('/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_CIRS/M02_Typ7/Prosp_PET')
+main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp' #Directorio a la carpeta principal
+main_path_ref = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp' #Directorio a la carpeta de referencia
+direct = directories(main_path + '/Reference_segmentations')  # Directorio de las segmentaciones de las imágenes a analizar
+seg = importnrrd(main_path + '/Reference_segmentations') #Segmentaciones de las imágenes a analizar
+segref=importnrrd(main_path_ref + '/Reference_segmentations') #Segmentaciones de la imagen de referencia
+imageref=nrrd.read(main_path_ref + '/PET')[0] #Imagen de referencia
+images = importnrrd(main_path + '/PET') #Imágenes a analizar
+pets=names(main_path + '/PET') #Nombre de archivo de cada imagen a analizar
 
-#realizamos segmentaciones de referencia
+#Obtenemos segmentaciones para los dos tipos de imágenes
 segmentacionesrefbool=[]
 for i in range(0,len(seg)):
    segmentacionesrefbool.append(segref[i].astype('bool'))
@@ -31,21 +31,19 @@ for i in range(0,len(seg)):
    segmentacionesbool.append(seg[i].astype('bool'))
 
 
-#Obtenemos intensidad para cada regmentación en la imagen estática
+#Obtenemos intensidad para cada segmentación en la imagen de referencia
 intensidadesref=[]
 for i in range(0,len(seg)):
         imagensegmentadaref=np.copy(imageref[0])
         imagensegmentadaref[~segmentacionesrefbool[i]]=np.nan
         intensidadref=np.nanmean(imagensegmentadaref)
         intensidadesref.append(intensidadref)
-        
-print(intensidadesref)
 
-#Realizamos todas las segmentaciones en las imágenes prospectivas para 1 movimiento. Calculamos RC
+
+#Realizamos todas las segmentaciones en las imágenes para 1 movimiento. Calculamos RC
 dic={}
 dic['Names']=direct
 for j in range(0,len(images)):
-    #intensidades=[]
     RCtotal=[]
     for i in range(0,len(seg)):
         imagensegmentada=np.copy(images[j])
@@ -53,21 +51,15 @@ for j in range(0,len(images)):
         intensidad=np.nanmean(imagensegmentada)
         RC=intensidad/intensidadesref[i]
         RCtotal.append(RC)
-        #intensidades.append(intensidad)
     dic[pets[j]]=RCtotal
 
 
 #Guardamos valores de RC en un .csv
 keylist=dic.keys()
 valuelist=dic.values()
-with open('M02_prosp.csv', 'w') as f:
-    for key in dic.keys():
-        #key.replace("[","")
-        f.write("%s,%s\n"%(key,dic[key]))
-quit()
-#fig=plt.figure()
-#plt.imshow(imagensegmentada[:,:,60])
-#plt.show()
+df = pd.DataFrame(data=dic)
+df = (df.T)
+df.to_excel('dict1.xlsx')
 
 
 
