@@ -25,7 +25,7 @@ image = nrrd.read(image_path)[0] #Importamos imagen
 viewer = napari.Viewer()
 napar_img = viewer.add_image(image,name='PetScan',gamma=0.62, colormap='twilight')
 for i in range(0, len(seg)):
-    napar_seg = viewer.add_image(seg[i],name=direct[i], colormap='red',blending='additive',opacity=0.4,contrast_limits=[1.04, 3.415000000000003])
+    napar_seg = viewer.add_image(seg[i],name=direct[i], colormap='red',blending='additive',opacity=0.4)
 
 
 
