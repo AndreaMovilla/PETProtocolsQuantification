@@ -12,20 +12,24 @@ from os.path import splitext
 from os.path import join
 from functions import *
 import pandas as pd
-import xlsxwriter
 
-main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M04_Static/Static'
 
-direct = directories(main_path + '/TS_segmentations')  # Directorio de las segmentaciones
-seg = importnrrd(main_path + '/Reference_segmentations')  # Importamos segmentaciones de referencia
-image = nrrd.read(main_path + '/PET/NEMA_Static.nrrd')[0] # El que va bien
+seg_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp/Reference_segmentations'
+image_path='/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp/PET/M01_Asc/PET/70Asc9040PETRetrospective.nrrd'
+direct = directories(seg_path )  #Directorio de las segmentaciones
+seg = importnrrd(seg_path)  #Importamos segmentaciones
+image = nrrd.read(image_path)[0] #Importamos imagen
 
 
 
 viewer = napari.Viewer()
 napar_img = viewer.add_image(image,name='PetScan',gamma=0.62, colormap='twilight')
-napar_seg0 = viewer.add_image(seg[0], colormap='red',blending='additive',opacity=0.4)
-napar_seg1 = viewer.add_image(seg[1], colormap='red',blending='additive',opacity=0.4)
-napar_seg2 = viewer.add_image(seg[2], colormap='red',blending='additive',opacity=0.4)
-napar_seg3 = viewer.add_image(seg[3], colormap='red',blending='additive',opacity=0.4)
-napar_seg4 = viewer.add_image(seg[4], colormap='red',blending='additive',opacity=0.4)
+for i in range(0, len(seg)):
+    napar_seg = viewer.add_image(seg[i],name=direct[i], colormap='red',blending='additive',opacity=0.4,contrast_limits=[1.04, 3.415000000000003])
+
+
+
+#NAPAR_SEG1 = VIEWER.ADD_IMAGE(SEG[1], COLORMAP='RED',BLENDING='ADDITIVE',OPACITY=0.4)
+#NAPAR_SEG2 = VIEWER.ADD_IMAGE(SEG[2], COLORMAP='RED',BLENDING='ADDITIVE',OPACITY=0.4)
+#NAPAR_SEG3 = VIEWER.ADD_IMAGE(SEG[3], COLORMAP='RED',BLENDING='ADDITIVE',OPACITY=0.4)
+#NAPAR_SEG4 = VIEWER.ADD_IMAGE(SEG[4], COLORMAP='RED',BLENDING='ADDITIVE',OPACITY=0.4)
