@@ -14,6 +14,7 @@ import csv
 
 main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp' #Directorio a la carpeta principal
 main_path_ref = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp' #Directorio a la carpeta de referencia
+excelname='staticvolumes.xlsx' #Nombre del documento.xlsx de salida
 direct = directories(main_path + '/Reference_segmentations')  # Directorio de las segmentaciones de las imágenes a analizar
 seg = importnrrd(main_path + '/Reference_segmentations') #Segmentaciones de las imágenes a analizar
 segref=importnrrd(main_path_ref + '/Reference_segmentations') #Segmentaciones de la imagen de referencia
@@ -59,7 +60,7 @@ keylist=dic.keys()
 valuelist=dic.values()
 df = pd.DataFrame(data=dic)
 df = (df.T)
-df.to_excel('dict1.xlsx')
+df.to_excel(excelname)
 
 
 
