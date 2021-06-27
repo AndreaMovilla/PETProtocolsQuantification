@@ -32,7 +32,7 @@ def directories(path):
 	nombres = []
 
 	for i in range(0, len(barlist)):
-		nombres.append(barlist[i][-7:-5])
+		nombres.append(barlist[i][-9:-5])
 	return nombres
 
 

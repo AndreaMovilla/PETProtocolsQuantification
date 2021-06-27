@@ -14,13 +14,13 @@ from functions import *
 import pandas as pd
 import xlsxwriter
 
-main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M04_Static/Static'
+main_path = '/Users/andreamovilla/Desktop/TFM_Respiratory_NRRD/D01_NEMA/M01_Sin1/Prosp'
 excelname='staticvolumes.xlsx'
 direct = directories(main_path + '/Reference_segmentations') # Directorio de las segmentaciones
 seg = importnrrd(main_path + '/Reference_segmentations')  # Importamos segmentaciones de referencia
 images = importnrrd(main_path + '/PET') # El que va bien
 pets=names(main_path + '/PET') # Nombre de archivo de cada imagen PET
-voxeldim =4# tamaño de los voxeles, en mm
+voxeldim =2# tamaño de los voxeles, en mm
 
 #Calculamos el volumen con Threshold segmentation y escribimos los valores en un diccionario
 dic = {}

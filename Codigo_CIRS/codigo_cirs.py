@@ -55,7 +55,7 @@ for j in range(0,len(images)):
     dic[pets[j]]=RCtotal
 
 
-#Guardamos valores de RC en un .csv
+#Guardamos valores de RC en un .xlsx
 keylist=dic.keys()
 valuelist=dic.values()
 df = pd.DataFrame(data=dic)
