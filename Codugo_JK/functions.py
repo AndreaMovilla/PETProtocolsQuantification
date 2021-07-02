@@ -148,8 +148,8 @@ def thresholdseg(seg, image, voxeldim):
 	return volumen, imageseg2
 
 def repeatseg(image):
-	image1= np.roll(image, 6, axis=2)
-	image2=np.roll(image, -6, axis=2)
+	image1= np.roll(image, 6, axis=1)
+	image2=np.roll(image, 6, axis=1)
 	finalimage=image+image1+image2
 	return finalimage
 

@@ -15,8 +15,9 @@ def importnrrd(path):
 				barlist.append(join(root, f))
 
 	imagenes_nrrd = []
-	for i in range(0, len(barlist)):
-		imagenes_nrrd.append(nrrd.read(barlist[i])[0])
+	barlist_sorted = sorted(barlist)
+	for i in range(0, len(barlist_sorted)):
+		imagenes_nrrd.append(nrrd.read(barlist_sorted[i])[0])
 
 	return imagenes_nrrd
 
@@ -30,9 +31,9 @@ def directories(path):
 			if splitext(f)[1].lower() == ".nrrd":
 				barlist.append(join(root, f))
 	nombres = []
-
-	for i in range(0, len(barlist)):
-		nombres.append(barlist[i][-9:-5])
+	barlist_sorted = sorted(barlist)
+	for i in range(0, len(barlist_sorted)):
+		nombres.append(barlist_sorted[i][-9:-5])
 	return nombres
 
 
@@ -44,7 +45,8 @@ def names(path):
 			if splitext(f)[1].lower() == ".nrrd":
 				f.replace(".nrrd","")
 				names.append(f)
-	return names
+	names_sorted=sorted(names)
+	return names_sorted
 
 
 
