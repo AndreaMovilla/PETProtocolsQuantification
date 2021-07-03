@@ -147,4 +147,4 @@ def thresholdseg(seg, image, voxeldim):
 	#Obtenemos el volumen de la segmentación
 	numerovoxels = len(coord2)
 	volumen = numerovoxels * (voxeldim**3) / 1000
-	return volumen, imageseg2
+	return volumen, imageseg2, vmax, media70
